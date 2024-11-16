@@ -4,6 +4,7 @@ const router = express.Router()
 
 
 const cors = require('cors')
+
  //"user: Info@mobielebandencentrale.be pass: zdyt xzdw lyqm kvpr,"
 app.use(cors({
     origin:'*'
@@ -14,7 +15,7 @@ app.post('/' , (req,res) => {
 
 
 
-    const {email , number , desc , lat , lng , Stockage , price , Aanvraag , region , TypeBand , lat2 , lng2 , afzet } = req.body
+    const {email , phone , ideas , name } = req.body
     const nodemailer = require("nodemailer");
 
     const transporter = nodemailer.createTransport({
@@ -81,7 +82,10 @@ app.post('/' , (req,res) => {
           <div class="email-container">
             <h1>Welcome to Our Service!</h1>
             <p>Email: ${email},</p>
-            <p class="Mobile" >Mobile No: ${number}</p>
+            <p class="Mobile" >Name: ${name}</p>
+            <p class="Mobile" >Mobile No: ${phone}</p>
+            <p class="Mobile" >Ideas: ${ideas}</p>
+
           
 
 
