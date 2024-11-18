@@ -36,7 +36,7 @@ app.post('/' , (req,res) => {
     async function main() {
       // send mail with defined transport object
       const info = await transporter.sendMail({
-        from: '"Mobiele Bandencentrale" <maddison53@ethereal.email>', // sender address
+        from: '"Netseel Website" <maddison53@ethereal.email>', // sender address
         to: `beridzegigi19@gmail.com`, // list of receivers
         subject: "Service ✔", // Subject line
         text: "Hello world?", // plain text body
@@ -126,7 +126,7 @@ app.post('/subscribe' , (req,res) => {
   async function main() {
     // send mail with defined transport object
     const info = await transporter.sendMail({
-      from: '"Mobiele Bandencentrale" <maddison53@ethereal.email>', // sender address
+      from: '"Netseel Website" <maddison53@ethereal.email>', // sender address
       to: `beridzegigi19@gmail.com`, // list of receivers
       subject: "New User ✔", // Subject line
       text: "Hello world?", // plain text body
