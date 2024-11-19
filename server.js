@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const router = express.Router()
 const axios = require('axios')
+const env = require('dotenv')
+env.config()
 
 
 const cors = require('cors')
@@ -102,7 +104,7 @@ app.post('/' , (req,res) => {
     
     main().catch(console.error);
 })
-const MAILCHIMP_API_KEY = '83803a6540c70302b9a9df8c10b8eb19-us20'; // Replace with your Mailchimp API key
+const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY; // Replace with your Mailchimp API key
 const MAILCHIMP_SERVER_PREFIX = 'us20'; // Replace with the appropriate server prefix
 const MAILCHIMP_LIST_ID = '389de4fc01'; // Replace with your Mailchimp list ID
 
