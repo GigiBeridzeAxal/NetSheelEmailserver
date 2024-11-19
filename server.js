@@ -102,7 +102,7 @@ app.post('/' , (req,res) => {
     
     main().catch(console.error);
 })
-const MAILCHIMP_API_KEY = '135280e62fe390f1a8903e8b53a20dac-us20'; // Replace with your Mailchimp API key
+const MAILCHIMP_API_KEY = '83803a6540c70302b9a9df8c10b8eb19-us20'; // Replace with your Mailchimp API key
 const MAILCHIMP_SERVER_PREFIX = 'us20'; // Replace with the appropriate server prefix
 const MAILCHIMP_LIST_ID = '389de4fc01'; // Replace with your Mailchimp list ID
 
