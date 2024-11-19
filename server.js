@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const router = express.Router()
+const axios = require('axios')
 
 
 const cors = require('cors')
@@ -101,41 +102,40 @@ app.post('/' , (req,res) => {
     
     main().catch(console.error);
 })
-app.post('/subscribe' , (req,res) => {
-    const {email} = req.body
+const MAILCHIMP_API_KEY = '135280e62fe390f1a8903e8b53a20dac-us20'; // Replace with your Mailchimp API key
+const MAILCHIMP_SERVER_PREFIX = 'us20'; // Replace with the appropriate server prefix
+const MAILCHIMP_LIST_ID = '389de4fc01'; // Replace with your Mailchimp list ID
 
-  const MAILCHIMP_API_KEY = 'ce32b27dd54d8e4c493f8cfa10442f1a-us20'; // Replace with your Mailchimp API key
-  const MAILCHIMP_SERVER_PREFIX = 'us20'; // Replace with the appropriate server prefix, e.g., us5, us20
-  const MAILCHIMP_LIST_ID = '611508'; // Replace with your list ID
-
-
-
-  try {
-    const send = async() => {
-      const response = await axios.post(
-        `https://${MAILCHIMP_SERVER_PREFIX}.api.mailchimp.com/3.0/lists/${MAILCHIMP_LIST_ID}/members`,
-        {
-            email_address: email,
-            status: 'subscribed', // 'subscribed' to add the user to your list
-        },
-        {
-            headers: {
-                Authorization: `apikey ${MAILCHIMP_API_KEY}`,
-            },
-        }
-    );
-
-    console.log(`Successfully subscribed: ${email}`);
-    return response.data;
+// Endpoint to subscribe a user
+app.post('/subscribe', async (req, res) => {
+    const email = req.body.email;
     
-} 
-send()
-    }catch (error) {
-      console.error('Error subscribing user:', error.response ? error.response.data : error.message);
-      throw error;
-  }
-  
-})
+    if (!email) {
+        return res.status(400).json({ error: 'Email address is required' });
+    }
+
+    try {
+        // Mailchimp API request to add the email to the list
+        const response = await axios.post(
+            `https://${MAILCHIMP_SERVER_PREFIX}.api.mailchimp.com/3.0/lists/${MAILCHIMP_LIST_ID}/members`,
+            {
+                email_address: email,
+                status: 'subscribed', // 'subscribed' status to add the user to the list
+            },
+            {
+                headers: {
+                    Authorization: `apikey ${MAILCHIMP_API_KEY}`,
+                },
+            }
+        );
+
+        // Respond to the client
+        res.status(200).json({ message: 'Successfully subscribed!' });
+    } catch (error) {
+        console.error(error.response ? error.response.data : error.message);
+        res.status(500).json({ error: 'There was an error subscribing the user.' });
+    }
+});
 
 
 app.listen(4000 , console.log("Server Launched"))
